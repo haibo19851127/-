@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ENGINEERING BLOG · 工程笔记</title>
+  <meta name="description" content="工程笔记 · 技术记录 · 个人思考" />
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Three.js 通过 CDN 引入（ES Module + importmap，锁定 0.160.0 版本） -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- 3D 线框背景画布：固定底层，pointer-events:none 由 CSS 控制 -->
+  <canvas id="wireframe-canvas"></canvas>
+
+  <!-- 公共顶部多级导航占位（由 js/nav.js 注入） -->
+  <div id="site-nav"></div>
+
+  <div class="page">
+    <!-- ============ Hero（保留 3D 视差 / 滚动淡出的首屏展示） ============ -->
+    <header class="hero">
+      <h1 class="hero-title">ENGINEERING BLOG</h1>
+      <p class="hero-subtitle">工程笔记 · 技术记录 · 个人思考</p>
+      <div class="scroll-hint">↓ 向下滚动</div>
+    </header>
+
+    <!-- ============ 主体：左侧栏目树 + 右侧图文列表 ============ -->
+    <div class="layout">
+      <!-- 左侧栏目树占位（由 js/nav.js 注入） -->
+      <div id="site-sidebar"></div>
+
+      <main class="content">
+        <!-- 面包屑占位（由 js/nav.js 注入） -->
+        <div id="site-breadcrumb"></div>
+
+        <div class="content-head">
+          <h2 id="list-title">全部文章</h2>
+          <span id="list-count"></span>
+        </div>
+
+        <div class="article-list">
+          <!-- 图文卡片 1：data-cat 对应栏目树里的三级分类 ID，支持多分类空格分隔 -->
+          <a class="article-card has-thumb" href="articles/article-1.html" data-cat="threejs">
+            <div class="card-thumb">
+              <!-- 缩略图：data-src 懒加载，zoomable 点击大图预览 -->
+              <img class="lazy-img zoomable"
+                   data-src="assets/images/sample-wireframe.svg"
+                   width="800" height="450"
+                   alt="Three.js 线框 3D 场景示意" />
+            </div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="tag">前端</span>
+                <time datetime="2026-09-26">2026-09-26</time>
+                <span> · 阅读约 5 分钟</span>
+              </div>
+              <h3>用 Three.js 线框几何体搭建一个工程风 3D 博客背景</h3>
+              <p>从场景搭建、GridHelper 网格地面、EdgesGeometry 棱边立方体，到鼠标视差与滚动淡出的完整实现记录——零框架、零构建，一个 ES Module 文件搞定全站 3D 背景。</p>
+              <span class="card-more">阅读全文 →</span>
+            </div>
+          </a>
+
+          <!-- 图文卡片 2 -->
+          <a class="article-card has-thumb" href="articles/article-1.html" data-cat="deploy">
+            <div class="card-thumb">
+              <img class="lazy-img zoomable"
+                   data-src="assets/images/sample-deploy.svg"
+                   width="800" height="450"
+                   alt="静态站点 Git 部署流水线示意" />
+            </div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="tag">工程实践</span>
+                <time datetime="2026-09-20">2026-09-20</time>
+                <span> · 阅读约 8 分钟</span>
+              </div>
+              <h3>静态站点部署笔记：从 GitHub 仓库到 Vercel 生产环境</h3>
+              <p>纯静态网站的零配置部署流程、相对路径在子路径托管下的坑、缓存与回滚策略，以及发布前必须自查的六项清单。</p>
+              <span class="card-more">阅读全文 →</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- 栏目下暂无文章时的空状态 -->
+        <div class="list-empty" id="list-empty">// 该栏目暂无文章，内容持续更新中。</div>
+      </main>
+    </div>
+
+    <!-- ============ 页脚 ============ -->
+    <footer class="site-footer">
+      <p>© 2026 ENGINEERING BLOG · Built with HTML / CSS / Three.js</p>
+    </footer>
+  </div>
+
+  <!-- 公共导航（普通脚本，所有页面共用） -->
+  <script src="js/nav.js"></script>
+  <!-- 图片懒加载 + 大图预览（所有含图页面共用） -->
+  <script src="js/image-preview.js"></script>
+  <!-- 3D 线框背景（ES Module，import 由上方 importmap 解析；逻辑独立未改动） -->
+  <script type="module" src="js/wireframe-bg.js"></script>
+</body>
+</html>

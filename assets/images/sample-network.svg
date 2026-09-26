@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <!-- 示例占位图 3：节点网络拓扑（工程蓝图风） -->
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="1" stop-color="#080b10"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg3)"/>
+  <!-- 连线 -->
+  <g stroke="#4a88c8" stroke-width="1.4" opacity="0.65">
+    <line x1="400" y1="225" x2="180" y2="120"/>
+    <line x1="400" y1="225" x2="180" y2="330"/>
+    <line x1="400" y1="225" x2="620" y2="120"/>
+    <line x1="400" y1="225" x2="620" y2="330"/>
+    <line x1="180" y1="120" x2="180" y2="330"/>
+    <line x1="620" y1="120" x2="620" y2="330"/>
+    <line x1="180" y1="120" x2="620" y2="120"/>
+    <line x1="180" y1="330" x2="620" y2="330"/>
+  </g>
+  <!-- 节点 -->
+  <g fill="none" stroke="#7fb2e6" stroke-width="2">
+    <circle cx="400" cy="225" r="34"/>
+    <circle cx="180" cy="120" r="24"/>
+    <circle cx="180" cy="330" r="24"/>
+    <circle cx="620" cy="120" r="24"/>
+    <circle cx="620" cy="330" r="24"/>
+  </g>
+  <g fill="#4a88c8">
+    <circle cx="400" cy="225" r="6"/>
+    <circle cx="180" cy="120" r="4.5"/>
+    <circle cx="180" cy="330" r="4.5"/>
+    <circle cx="620" cy="120" r="4.5"/>
+    <circle cx="620" cy="330" r="4.5"/>
+  </g>
+  <text x="32" y="56" fill="#4a88c8" font-family="Consolas, monospace" font-size="15" letter-spacing="3">NETWORK TOPOLOGY · NODE GRAPH</text>
+  <text x="32" y="410" fill="#8fa3b8" font-family="Consolas, monospace" font-size="16" letter-spacing="2">SAMPLE // DISTRIBUTED NODES</text>
+</svg>

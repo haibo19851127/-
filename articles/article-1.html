@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>用 Three.js 线框几何体搭建工程风 3D 博客背景 · ENGINEERING BLOG</title>
+  <meta name="description" content="零框架、零构建，用一个 ES Module 文件实现全站 3D 线框背景" />
+  <!-- 注意：本页位于 articles/ 子目录，资源路径需加 ../ 前缀 -->
+  <link rel="stylesheet" href="../css/style.css" />
+  <!-- Three.js 通过 CDN 引入（ES Module + importmap，锁定 0.160.0 版本） -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- 3D 线框背景画布：与首页、关于页完全相同的公共组件 -->
+  <canvas id="wireframe-canvas"></canvas>
+
+  <!-- 公共顶部多级导航占位（由 js/nav.js 注入，脚本内部自动处理子目录路径） -->
+  <div id="site-nav"></div>
+
+  <div class="page">
+    <main class="page-shell">
+      <!-- 面包屑占位（由 js/nav.js 注入，自动显示 首页/技术笔记/前端开发/...） -->
+      <div id="site-breadcrumb"></div>
+
+      <a class="back-link" href="../index.html">← 返回首页</a>
+
+      <h1 class="page-title">用 Three.js 线框几何体搭建工程风 3D 博客背景</h1>
+      <p class="page-meta">2026-09-26 · 前端 · 阅读约 5 分钟</p>
+
+      <article class="prose">
+        <p>这个博客的 3D 背景只有三个元素：<strong>网格地面、线框立方体、线框圆环</strong>。没有粒子、没有辉光、没有后期处理——目标是「工程制图」的理性质感，而不是赛博霓虹。这篇文章记录关键实现。</p>
+
+        <!-- 图文混排：data-src 懒加载；zoomable 点击弹出大图；CSS 保证宽度自适应 -->
+        <figure>
+          <img class="lazy-img zoomable"
+               data-src="../assets/images/sample-wireframe.svg"
+               width="800" height="450"
+               alt="线框立方体、圆环与透视网格地面的工程蓝图示意" />
+          <figcaption>图 1：网格地面 + 棱边立方体 + 线框圆环（点击查看大图）</figcaption>
+        </figure>
+
+        <h2>为什么用 importmap 而不是 script 标签</h2>
+        <p>Three.js 从 r160 起移除了 UMD 全局构建，老式的 <code>&lt;script src="three.min.js"&gt;</code> 配合全局 <code>THREE</code> 对象的写法已经失效。现代写法是 importmap + ES Module：</p>
+
+        <pre><code>&lt;script type="importmap"&gt;
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+  }
+}
+&lt;/script&gt;
+&lt;script type="module" src="js/wireframe-bg.js"&gt;&lt;/script&gt;</code></pre>
+
+        <p>锁定版本号可以避免 CDN 自动升级带来的破坏性变更。需要注意 ES Module 不支持 <code>file://</code> 协议，本地预览要起一个静态服务器。</p>
+
+        <h2>棱边立方体与线框圆环的区别</h2>
+        <p>两个几何体看起来都是「线框」，用的却是不同 API：</p>
+        <ul>
+          <li><strong>立方体</strong>用 <code>EdgesGeometry</code>：只提取 12 条棱边，干净利落，像 CAD 图纸；</li>
+          <li><strong>圆环</strong>用 <code>WireframeGeometry</code>：保留所有三角剖分线，曲面的网格密度本身就是装饰。</li>
+        </ul>
+
+        <h2>鼠标视差：lerp 平滑是关键</h2>
+        <p>直接把相机位置绑定鼠标坐标会显得生硬。做法是维护「目标值」和「当前值」两个变量，每帧用线性插值靠近目标：</p>
+
+        <pre><code>view.x += (mouse.x - view.x) * 0.05;  // 系数越小越柔和
+camera.position.x = cameraBase.x + view.x * 1.2;
+camera.lookAt(lookTarget);</code></pre>
+
+        <h2>滚动淡出与事件穿透</h2>
+        <p>canvas 固定在 <code>position: fixed; z-index: 0</code>，并设置 <code>pointer-events: none</code>，鼠标事件全部穿透给页面元素。滚动时按 <code>scrollY</code> 占视口高度的比例线性降低 canvas 透明度，文章区自然浮现：</p>
+
+        <pre><code>const opacity = Math.max(0, 1 - window.scrollY / (innerHeight * 0.8));
+canvas.style.opacity = String(opacity);</code></pre>
+
+        <figure>
+          <img class="lazy-img zoomable"
+               data-src="../assets/images/sample-deploy.svg"
+               width="800" height="450"
+               alt="纯静态站点的 Git 提交到云端部署的流水线示意" />
+          <figcaption>图 2：静态站点同样适配这套零构建部署流水线（点击查看大图）</figcaption>
+        </figure>
+
+        <h2>性能与降级</h2>
+        <ul>
+          <li><code>devicePixelRatio</code> 上限设为 2，防止高分屏和移动端过度渲染；</li>
+          <li>页面切到后台（<code>visibilitychange</code>）时暂停渲染循环；</li>
+          <li>检测 <code>prefers-reduced-motion</code>，用户开启减少动态效果时停止自转；</li>
+          <li>WebGL 不可用时直接隐藏 canvas，降级为纯 CSS 深色底，内容不丢。</li>
+        </ul>
+
+        <blockquote>完整代码见仓库 <code>js/wireframe-bg.js</code>，所有可调参数（颜色、尺寸、速度）都集中在文件顶部的 CONFIG 常量中。</blockquote>
+      </article>
+
+      <p style="margin-top: 40px;">
+        <a class="back-link" href="../index.html#cat=threejs">← 返回 Three.js 3D 栏目</a>
+      </p>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 ENGINEERING BLOG · Built with HTML / CSS / Three.js</p>
+    </footer>
+  </div>
+
+  <!-- 公共导航（普通脚本；子目录路径由 nav.js 自动处理） -->
+  <script src="../js/nav.js"></script>
+  <!-- 图片懒加载 + 大图预览 -->
+  <script src="../js/image-preview.js"></script>
+  <!-- 3D 线框背景（ES Module，import 由上方 importmap 解析） -->
+  <script type="module" src="../js/wireframe-bg.js"></script>
+</body>
+</html>

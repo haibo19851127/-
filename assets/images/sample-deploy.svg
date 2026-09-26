@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <!-- 示例占位图 2：静态部署 / Git 工作流示意（工程蓝图风） -->
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="1" stop-color="#080b10"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg2)"/>
+  <!-- 网格底纹 -->
+  <g stroke="#4a88c8" stroke-width="0.6" opacity="0.18">
+    <path d="M0 60H800 M0 120H800 M0 180H800 M0 240H800 M0 300H800 M0 360H800 M0 420H800"/>
+    <path d="M80 0V450 M160 0V450 M240 0V450 M320 0V450 M400 0V450 M480 0V450 M560 0V450 M640 0V450 M720 0V450"/>
+  </g>
+  <!-- 服务器机架 -->
+  <g stroke="#7fb2e6" stroke-width="2" fill="none">
+    <rect x="110" y="90" width="170" height="46"/>
+    <rect x="110" y="150" width="170" height="46"/>
+    <rect x="110" y="210" width="170" height="46"/>
+    <circle cx="132" cy="113" r="5" fill="#4a88c8"/>
+    <circle cx="132" cy="173" r="5" fill="#4a88c8"/>
+    <circle cx="132" cy="233" r="5" fill="#4a88c8"/>
+    <line x1="152" y1="113" x2="260" y2="113"/>
+    <line x1="152" y1="173" x2="260" y2="173"/>
+    <line x1="152" y1="233" x2="260" y2="233"/>
+  </g>
+  <!-- Git 分支线 -->
+  <g stroke="#4a88c8" stroke-width="2" fill="none">
+    <circle cx="470" cy="120" r="9"/>
+    <circle cx="590" cy="210" r="9"/>
+    <circle cx="470" cy="300" r="9"/>
+    <path d="M470 129 V200 C470 210 480 210 481 210 H581"/>
+    <path d="M590 219 V290 C590 300 580 300 479 300"/>
+  </g>
+  <g fill="#9ec4ea" font-family="Consolas, monospace" font-size="14" letter-spacing="1">
+    <text x="615" y="125">main</text>
+    <text x="615" y="215">preview</text>
+    <text x="350" y="305">release</text>
+  </g>
+  <text x="32" y="410" fill="#8fa3b8" font-family="Consolas, monospace" font-size="16" letter-spacing="2">SAMPLE // STATIC DEPLOY PIPELINE</text>
+  <text x="32" y="56" fill="#4a88c8" font-family="Consolas, monospace" font-size="15" letter-spacing="3">GITHUB → VERCEL · CI FLOW</text>
+</svg>

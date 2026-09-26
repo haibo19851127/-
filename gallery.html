@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>图片库 · ENGINEERING BLOG</title>
+  <meta name="description" content="工程线框风格示意图库" />
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Three.js 通过 CDN 引入（ES Module + importmap，锁定 0.160.0 版本） -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- 3D 线框背景画布：与全站完全相同的公共组件 -->
+  <canvas id="wireframe-canvas"></canvas>
+
+  <!-- 公共顶部多级导航占位（由 js/nav.js 注入，自动高亮“图片库”） -->
+  <div id="site-nav"></div>
+
+  <div class="page">
+    <main class="page-shell">
+      <!-- 面包屑占位（自动显示 首页 / 图片库） -->
+      <div id="site-breadcrumb"></div>
+
+      <h1 class="page-title">图片库</h1>
+      <p class="page-meta">// gallery — 点击任意图片查看大图，滚动到可见区域才加载</p>
+
+      <!-- 图片网格：新增图片只需复制一个 figure，改 data-src 与文字即可 -->
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img class="lazy-img zoomable"
+               data-src="assets/images/sample-wireframe.svg"
+               width="800" height="450"
+               alt="Three.js 线框 3D 场景：网格地面、立方体与圆环" />
+          <figcaption>线框 3D 场景示意</figcaption>
+        </figure>
+
+        <figure class="gallery-item">
+          <img class="lazy-img zoomable"
+               data-src="assets/images/sample-deploy.svg"
+               width="800" height="450"
+               alt="静态站点从 GitHub 到 Vercel 的部署流水线" />
+          <figcaption>静态部署流水线</figcaption>
+        </figure>
+
+        <figure class="gallery-item">
+          <img class="lazy-img zoomable"
+               data-src="assets/images/sample-network.svg"
+               width="800" height="450"
+               alt="分布式节点网络拓扑示意图" />
+          <figcaption>节点网络拓扑</figcaption>
+        </figure>
+
+        <figure class="gallery-item">
+          <img class="lazy-img zoomable"
+               data-src="assets/images/sample-chart.svg"
+               width="800" height="450"
+               alt="延迟与吞吐量的时间序列监控图表" />
+          <figcaption>监控指标图表</figcaption>
+        </figure>
+      </div>
+
+      <p style="margin-top: 40px;">
+        <a class="back-link" href="index.html">← 返回首页</a>
+      </p>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 ENGINEERING BLOG · Built with HTML / CSS / Three.js</p>
+    </footer>
+  </div>
+
+  <!-- 公共导航（普通脚本，所有页面共用） -->
+  <script src="js/nav.js"></script>
+  <!-- 图片懒加载 + 大图预览（图库核心功能，与文章页同一组件） -->
+  <script src="js/image-preview.js"></script>
+  <!-- 3D 线框背景（ES Module，import 由上方 importmap 解析） -->
+  <script type="module" src="js/wireframe-bg.js"></script>
+</body>
+</html>

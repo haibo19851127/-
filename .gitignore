@@ -1,0 +1,8 @@
+# Trae 本地计划文档，不入库
+.trae/
+
+# 系统与编辑器杂项
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.log

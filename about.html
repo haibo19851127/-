@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>关于 · ENGINEERING BLOG</title>
+  <meta name="description" content="关于这个博客与作者" />
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Three.js 通过 CDN 引入（ES Module + importmap，锁定 0.160.0 版本） -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- 3D 线框背景画布：与首页完全相同的公共组件 -->
+  <canvas id="wireframe-canvas"></canvas>
+
+  <!-- 公共顶部多级导航占位（由 js/nav.js 注入） -->
+  <div id="site-nav"></div>
+
+  <div class="page">
+    <main class="page-shell">
+      <!-- 面包屑占位（由 js/nav.js 注入） -->
+      <div id="site-breadcrumb"></div>
+
+      <h1 class="page-title">关于</h1>
+      <p class="page-meta">// whoami — 这个博客是做什么的</p>
+
+      <article class="prose">
+        <p>你好，我是这个博客的作者。这里是我的<strong>工程笔记本</strong>：记录日常开发中的技术决策、踩坑过程与复盘思考，也保留一些与代码无关的个人想法。</p>
+
+        <h2>我关注什么</h2>
+        <p>偏好简单、可维护、少依赖的技术方案——能用原生技术解决的问题，不引入额外框架；能静态部署的站点，不搭建服务器。视觉上喜欢工程制图般的线框与几何感，所以你看到了现在这个 3D 背景。</p>
+
+        <div class="about-grid">
+          <div class="about-item">
+            <h3>// 技术栈</h3>
+            <p>HTML / CSS / 原生 JavaScript、Three.js、静态站点与前端工程化实践。</p>
+          </div>
+          <div class="about-item">
+            <h3>// 写作主题</h3>
+            <p>前端实现笔记、部署与运维记录、工具链选型、设计与工程的交叉思考。</p>
+          </div>
+          <div class="about-item">
+            <h3>// 更新频率</h3>
+            <p>不追求固定周期；有值得记录的实践或结论时更新，优先保证内容密度。</p>
+          </div>
+        </div>
+
+        <h2 id="contact">联系方式</h2>
+        <p>如果你对文章内容有疑问或建议，欢迎通过 GitHub 仓库提 Issue，或发送邮件交流。</p>
+        <ul>
+          <li>GitHub：github.com/&lt;your-name&gt;/engineering-blog</li>
+          <li>邮箱：hello@example.com</li>
+        </ul>
+
+        <blockquote>
+          “把解决问题的过程写下来，是对思路最好的二次审查。”
+        </blockquote>
+      </article>
+
+      <p style="margin-top: 40px;">
+        <a class="back-link" href="index.html">← 返回首页</a>
+      </p>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 ENGINEERING BLOG · Built with HTML / CSS / Three.js</p>
+    </footer>
+  </div>
+
+  <!-- 公共导航（普通脚本，所有页面共用） -->
+  <script src="js/nav.js"></script>
+  <!-- 图片组件（页面暂无图也可安全引入，不做任何事） -->
+  <script src="js/image-preview.js"></script>
+  <!-- 3D 线框背景（ES Module，import 由上方 importmap 解析） -->
+  <script type="module" src="js/wireframe-bg.js"></script>
+</body>
+</html>

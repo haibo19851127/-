@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <!-- 示例占位图 4：数据监控图表（工程蓝图风） -->
+  <defs>
+    <linearGradient id="bg4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="1" stop-color="#080b10"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg4)"/>
+  <!-- 坐标轴与网格 -->
+  <g stroke="#4a88c8" stroke-width="1" opacity="0.35">
+    <line x1="100" y1="90" x2="100" y2="350"/>
+    <line x1="100" y1="350" x2="720" y2="350"/>
+    <line x1="100" y1="285" x2="720" y2="285"/>
+    <line x1="100" y1="220" x2="720" y2="220"/>
+    <line x1="100" y1="155" x2="720" y2="155"/>
+  </g>
+  <!-- 折线 -->
+  <polyline points="130,300 230,250 330,270 430,180 530,200 630,120 700,140"
+            fill="none" stroke="#7fb2e6" stroke-width="2.4"/>
+  <g fill="#4a88c8" stroke="#0b1220" stroke-width="2">
+    <circle cx="130" cy="300" r="5"/><circle cx="230" cy="250" r="5"/>
+    <circle cx="330" cy="270" r="5"/><circle cx="430" cy="180" r="5"/>
+    <circle cx="530" cy="200" r="5"/><circle cx="630" cy="120" r="5"/>
+    <circle cx="700" cy="140" r="5"/>
+  </g>
+  <!-- 柱状 -->
+  <g fill="none" stroke="#4a88c8" stroke-width="2" opacity="0.8">
+    <rect x="150" y="310" width="22" height="40"/>
+    <rect x="250" y="285" width="22" height="65"/>
+    <rect x="350" y="295" width="22" height="55"/>
+    <rect x="450" y="250" width="22" height="100"/>
+    <rect x="550" y="262" width="22" height="88"/>
+  </g>
+  <text x="32" y="56" fill="#4a88c8" font-family="Consolas, monospace" font-size="15" letter-spacing="3">METRICS DASHBOARD · LATENCY / QPS</text>
+  <text x="32" y="410" fill="#8fa3b8" font-family="Consolas, monospace" font-size="16" letter-spacing="2">SAMPLE // TIME SERIES CHART</text>
+</svg>
